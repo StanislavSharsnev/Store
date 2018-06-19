@@ -1,0 +1,22 @@
+<carousel-component>
+    <div
+        *ngFor="let photo of data.item.photos"
+        class="item-carousel">
+
+        <img [src]="photo" />
+    </div>
+</carousel-component>
+
+<mat-chip-list class="mat-chip-list-stacked">
+     <mat-chip>
+        Название: {{ data.item.name }} р.
+    </mat-chip>
+
+    <mat-chip>
+        Цена: {{ data.item.price }} р.
+    </mat-chip>
+
+    <mat-chip>
+        Описание: {{ data.item.description }}
+    </mat-chip>
+</mat-chip-list>

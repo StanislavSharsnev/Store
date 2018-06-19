@@ -1,0 +1,12 @@
+input[type='file'] {
+	display: none;
+}
+mat-form-field{
+	display: block;
+}
+.filename{
+	display: inline-block;
+    width: 255px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

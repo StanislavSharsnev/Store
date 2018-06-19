@@ -1,0 +1,19 @@
+.items-container {
+	padding: 16px;
+	display: flex;
+
+	mat-card {
+		width: 20%;
+		margin: 0 6px;
+		cursor: pointer;
+
+		mat-card-footer {
+			padding: 12px;
+
+			.description {
+				padding: 6px;
+				font-size: 12px;
+			}
+		}
+	}
+}

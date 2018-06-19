@@ -1,0 +1,10 @@
+.categories-container {
+	padding: 16px;
+	display: flex;
+
+	mat-card {
+		width: 25%;
+		margin: 0 6px;
+		cursor: pointer;
+	}
+}

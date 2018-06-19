@@ -1,0 +1,43 @@
+<mat-card>
+	<form
+		[formGroup]="loginForm"
+		(ngSubmit)="onSubmit()">
+
+		 <mat-form-field>
+		 	<input
+		 		matInput
+		 		placeholder="Логин"
+		 		formControlName="login"
+		 		[(ngModel)]="login.login" />
+
+		 	<mat-error *ngIf="loginControl.hasError('required')">
+		 		Заполните это поле
+		    </mat-error>
+
+		 </mat-form-field>
+
+		<mat-form-field>
+		 	<input
+		 		matInput
+		 		type = "password"
+		 		placeholder="Пароль"
+		 		formControlName="password"
+		 		[(ngModel)]="login.password" />
+		 	<mat-error *ngIf="passwordControl.hasError('required')">
+		 		Заполните это поле
+		    </mat-error>
+
+		</mat-form-field>
+		<button 
+			[disabled] = "submit"
+			type="submit" 
+			mat-raised-button color="primary">Вход
+		</button>
+		<button 
+			[routerLink] = "['/registration']"
+			type="button" 
+			mat-raised-button color="primary">Зарегистрироваться
+
+		</button>
+	</form>
+</mat-card>

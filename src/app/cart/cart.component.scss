@@ -1,0 +1,47 @@
+.item-image{
+	height: 50px;
+	width: auto;
+}
+
+table {
+	width: 100%;
+
+	td {
+		text-align: center;
+
+		span.error {
+			color: red;
+			font-size: 11px;
+			display: block;
+		    text-align: right;
+		    margin-top: -16px;
+		    padding-right: 56px;
+		    margin-bottom: 10px;
+		}
+
+		input.error {
+			color: red;
+		}
+		
+		.item-name{
+			cursor:pointer;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+button {
+	margin-top: 16px;
+    float: right;
+    margin-right: 16px;
+}
+.no-auth{
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	color: purple;
+
+}

@@ -1,0 +1,55 @@
+<form
+		[formGroup]="CategoryForm"
+		(ngSubmit)="onSubmit()">
+
+		 <mat-form-field>
+		 	<input
+		 		matInput
+		 		placeholder="Имя"
+		 		formControlName="name"
+		 		[(ngModel)]="category.name" />
+
+		 	<mat-error *ngIf="nameControl.hasError('required')">
+		 		Заполните это поле
+		    </mat-error>
+
+		 </mat-form-field>
+
+		<mat-form-field>
+		 	<input
+		 		matInput
+		 		placeholder="Описание"
+		 		formControlName="description"
+		 		[(ngModel)]="category.description" />
+		 	<mat-error *ngIf="descriptionControl.hasError('required')">
+		 		Заполните это поле
+		    </mat-error>
+
+		</mat-form-field>
+
+		<input
+			ng2FileSelect
+			[uploader]="uploader"
+			#file
+			type="file"
+			accept="image/*" />
+
+		<button 
+			[disabled]="submit"
+			type="button" 
+			mat-raised-button color="primary"
+			(click)="file.click()">Выберите изображение
+		</button>
+
+		<span class = "filename" 
+			 *ngIf="uploader.queue.length > 0">
+			{{ uploader.queue[0].file.name }}
+		</span>
+
+		<button 
+			[disabled]="submit || uploader.queue.length == 0"
+			type="submit" 
+			mat-raised-button color="primary">Сохранить
+		</button>
+		
+	</form>

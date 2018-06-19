@@ -1,0 +1,26 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor= "let category of categories">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{category.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{category.description ? category.description : "-"}}
+        <div>
+          <mat-icon (click)="$event.stopPropagation(); oncategorydelete(category)">delete</mat-icon>
+          <mat-icon (click)="$event.stopPropagation(); oncategoryedit(category)">edit</mat-icon>
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+ </mat-accordion>
+
+
+<button
+	mat-fab
+	color="warn"
+	class="add-btn"
+	(click)="addcategory()">
+
+ 	<mat-icon>add</mat-icon>
+</button>

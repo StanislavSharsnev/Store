@@ -1,0 +1,56 @@
+<table border="1">
+	<thead>
+		<th>Название</th>
+		<th>Цена</th>
+		<th>Изображение</th>
+		<th>Количество</th>
+	</thead>
+
+	<tbody>
+		<tr *ngFor = "let item of Items">
+			<td>
+				<span class = "item-name" (click)= "showitemdialog(item.item)">{{item.item.name}}</span>
+			</td>
+			<td>{{item.item.price}}</td>
+			<td><img class = "item-image" [src] = "item.item.photos[0]"></td>
+			<td>
+				<mat-form-field>
+					<input
+						[(ngModel)]="item.count"
+						matInput
+						placeholder="Количество"
+						[class.error]="item.count < 0"
+						type="number" />
+
+				</mat-form-field>
+
+				<span
+					*ngIf="item.count < 0"
+					class="error">
+
+					Некорректное значение
+				</span>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3">Итого</td>
+			<td>
+				<span *ngIf="calcresult() >= 0">{{calcresult()}}</span>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<button
+	*ngIf="isuserlogin()"
+	(click)="makeorder()"
+	[disabled] = "calcresult()<=0" 
+	mat-raised-button color="primary">Оформить заказ
+
+</button>
+<div *ngIf="!isuserlogin()"
+class="no-auth">
+	Только зарегистрированные пользователи могут сделать заказ
+</div>
