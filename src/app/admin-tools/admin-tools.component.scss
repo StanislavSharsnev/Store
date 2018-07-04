@@ -11,4 +11,18 @@ mat-panel-description {
 
 mat-icon {
 	margin: 0 12px;
+	cursor: pointer;
+}
+table{
+	width: 100%;
+}
+.add-item-btn{
+	position: absolute;
+    top: 70px;
+    right: 16px;
+}
+.orders-btn{
+	position: absolute;
+    top: 70px;
+    right: 300px;
 }

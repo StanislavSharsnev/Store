@@ -7,14 +7,16 @@ import { AppService } from'./services/app.service';
 })
 export class AppComponent {
 	constructor(private appservice:AppService){}
-	public get title():string{
+
+	public get title():string {
 		return this.appservice.title;
 	}
-isuserlogin():boolean{
-	return localStorage.getItem('token')!=null;
 
+	isuserlogin() : boolean {
+		return localStorage.getItem('token') != null;
 	}
-logout(){
-	localStorage.removeItem('token');
-}	
+
+	logout() {
+		localStorage.removeItem('token');
+	}
 }

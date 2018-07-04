@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Category } from'../models/category.model';
 import { FileUploader } from 'ng2-file-upload';
 import { API } from'../api';
+import { HttpClientService, HttpFormEncodingCodec } from'../services/http.service';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
 	selector: 'app-category-edit-dialog',
@@ -20,16 +22,25 @@ export class CategoryEditDialog {
 	public nameControl: FormControl = null;
 	public descriptionControl: FormControl = null;
 	public submit: boolean= false;
-	public uploader:FileUploader = new FileUploader({url: API.AddCategory});
+	public uploader:FileUploader;
 
   constructor(
   	private dialogRef: MatDialogRef<CategoryEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder) {}
+    private Http : HttpClientService,
+    private fb: FormBuilder) {
+  	if(data!=null){
+  		this.category = data;
+  		this.uploader = new FileUploader({url: API.EditCategory});
+  	}
+  	else {
+  		this.uploader = new FileUploader({url: API.AddCategory});
+  	}
+  }
 
   ngOnInit() {
 		this.nameControl = new FormControl('', Validators.required);
-		this.descriptionControl = new FormControl('', Validators.required);
+		this.descriptionControl = new FormControl('', Validators.nullValidator);
 
 		this.CategoryForm = this.fb.group({
 			name: this.nameControl,
@@ -49,18 +60,35 @@ export class CategoryEditDialog {
 		this.nameControl.disable();
 		this.descriptionControl.disable();
 
-		this.uploader.onBuildItemForm = (item, form) => {
-			form.append("category", JSON.stringify(this.category));
-		};
+		if(this.uploader.queue.length > 0) {
+			this.uploader.onBuildItemForm = (item, form) => {
+				form.append("category", JSON.stringify(this.category));
+			};
 
-		this.uploader.onSuccessItem = (item, response, status, headers) => {
-			this.dialogRef.close(true);
+			this.uploader.onSuccessItem = (item, response, status, headers) => {
+				this.dialogRef.close(true);
+			}
+
+			this.uploader.onErrorItem = (item, response, status, headers) => {
+				this.dialogRef.close(false);
+			}
+
+			this.uploader.uploadAll();
 		}
+		else {
+			const body = new HttpParams({ encoder: new HttpFormEncodingCodec() })
+		        .append('category', JSON.stringify(this.category))
+		        .toString();
 
-		this.uploader.onErrorItem = (item, response, status, headers) => {
-			this.dialogRef.close(false);
+			this.Http.post(this.category.id > 0 ? API.EditCategory : API.AddCategory, body,
+				new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'))
+				.subscribe(
+					response => {
+						this.dialogRef.close(true);
+					},
+					error => {
+						alert(error.message);
+					});
 		}
-
-		this.uploader.uploadAll();
 	}
 }

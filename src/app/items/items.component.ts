@@ -18,7 +18,7 @@ import { AppService } from'../services/app.service';
 })
 export class ItemsComponent {
 	private categoryId: number;
-	private items: any[] = [];
+	public items: any[] = [];
 
 	constructor(
 		private appservice: AppService,

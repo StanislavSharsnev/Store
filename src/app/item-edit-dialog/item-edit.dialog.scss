@@ -1,0 +1,65 @@
+input[type='file'] {
+	display: none;
+}
+mat-form-field{
+	display: block;
+}
+.filename{
+	display: inline-block;
+    width: 255px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.footer {
+	vertical-align: top;
+    display: flex;
+    align-items: baseline;
+    margin-top: 6px;
+
+
+    .files-list {
+    	display: inline-block;
+    	text-align: center;
+    }
+}
+.photo{
+	display: inline-block;
+	position: relative;
+
+	img {
+		height: 100px;
+		width: 100px;
+	}
+
+	mat-icon {
+		position: absolute;
+		cursor: pointer;
+		line-height: 24px;
+		right: 6px;
+		top: 6px;
+		color: red;
+		font-size: 14px;
+		background: rgba(0, 0, 0, 0.3);
+		border-radius: 50%;
+		display: none;
+	}
+
+	&:hover {
+
+		mat-icon {
+			display: block;
+		}
+	}
+}
+.preview {
+	display: initial;
+	width: auto;
+	height: 200px;
+}
+.photos {
+	text-align: center;
+}
+button[type="submit"]{
+	float: right;
+	margin-top: 6px;
+}

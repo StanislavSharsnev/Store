@@ -1,5 +1,8 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor= "let category of categories">
+  <mat-expansion-panel
+    *ngFor= "let category of categories"
+    (opened)="loaditems(category)">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{category.name}}
@@ -7,20 +10,62 @@
       <mat-panel-description>
         {{category.description ? category.description : "-"}}
         <div>
-          <mat-icon (click)="$event.stopPropagation(); oncategorydelete(category)">delete</mat-icon>
-          <mat-icon (click)="$event.stopPropagation(); oncategoryedit(category)">edit</mat-icon>
+          <mat-icon (click)="$event.stopPropagation(); oncategorydelete(category)" title="Удалить">delete</mat-icon>
+          <mat-icon (click)="$event.stopPropagation(); oncategoryedit(category)" title="Изменить">edit</mat-icon>
         </div>
       </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <table border = "1"
+      *ngIf = "items.length>0">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Цена</th>
+          <th>Описание</th>
+          <th>Фото</th>
+          <th colspan="2">Редактировать</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor= "let item of items">
+          <td>{{item.name}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.description}}</td>
+          <td><img [src] = "item.photos[0]" width="40px"></td>
+          <td><mat-icon (click)="$event.stopPropagation(); onitemdelete(item)" title="Удалить">delete</mat-icon></td>
+          <td><mat-icon (click)="$event.stopPropagation(); onitemedit(item)" title="Изменить">edit</mat-icon></td>
+        </tr>
+      </tbody>
+    </table>
+
   </mat-expansion-panel>
  </mat-accordion>
 
 
 <button
+  title = "Добавить категорию"
 	mat-fab
 	color="warn"
 	class="add-btn"
 	(click)="addcategory()">
 
  	<mat-icon>add</mat-icon>
+</button>
+
+<button
+mat-raised-button
+class = "add-item-btn"
+(click)="additem()"
+color="warn">
+  Добавить товар
+</button>
+
+<button
+mat-raised-button
+class = "orders-btn"
+(click)="showorders()"
+color="primary">
+  Заказы
 </button>

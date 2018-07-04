@@ -15,6 +15,9 @@ import {
   FormsModule,
   ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { HttpClientService } from './services/http.service';
@@ -30,6 +33,10 @@ import{ AdminComponent } from'./admin/admin.component';
 import { AdminToolsComponent } from'./admin-tools/admin-tools.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CategoryEditDialog } from './category-edit-dialog/category-edit.dialog';
+import { ItemEditDialog } from "./item-edit-dialog/item-edit.dialog";
+import { OrdersDialog } from"./orders-dialog/orders.dialog";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -42,7 +49,9 @@ import { CategoryEditDialog } from './category-edit-dialog/category-edit.dialog'
     RegistrationComponent,
     AdminComponent,
     AdminToolsComponent,
-    CategoryEditDialog 
+    CategoryEditDialog,
+    ItemEditDialog,
+    OrdersDialog 
   ],
   imports: [
     BrowserModule,
@@ -61,13 +70,18 @@ import { CategoryEditDialog } from './category-edit-dialog/category-edit.dialog'
     FormsModule,
     ReactiveFormsModule,
     MatExpansionModule,
-    FileUploadModule
+    FileUploadModule,
+    MatTabsModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     HttpClientService,
     AppService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ItemDialog, CategoryEditDialog]
+  entryComponents: [ItemDialog, CategoryEditDialog, ItemEditDialog, OrdersDialog]
 })
 export class AppModule { }

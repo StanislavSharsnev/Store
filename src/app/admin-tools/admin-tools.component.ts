@@ -8,7 +8,9 @@ import { Router } from "@angular/router";
 import { Category } from'../models/category.model';
 import { MatDialog } from '@angular/material';
 import { CategoryEditDialog } from '../category-edit-dialog/category-edit.dialog';
-
+import { Item } from'../models/item.model';
+import { ItemEditDialog } from"../item-edit-dialog/item-edit.dialog";
+import { OrdersDialog } from"../orders-dialog/orders.dialog";
 
 @Component({
 	selector: 'app-admin-tools',
@@ -17,6 +19,7 @@ import { CategoryEditDialog } from '../category-edit-dialog/category-edit.dialog
 })
 export class AdminToolsComponent {
 
+public items:Item[] = [];
 public categories: Category[] = [];
 	
 	constructor(
@@ -60,5 +63,62 @@ public categories: Category[] = [];
 				alert(error.message);
 			});
 	}
-	oncategoryedit(category:Category){}
+
+	oncategoryedit(category:Category){
+		let dialogRef = this.dialog.open(CategoryEditDialog, {
+			width: '600px',
+			data: category
+	    });
+	    dialogRef.afterClosed().subscribe(
+	    	result => {
+	    		if (result) {this.getcategories();}
+	    	});
+	}
+	loaditems(category:Category){
+		this.http.get(API.getItemsFromCategory+category.id).subscribe(
+			data => {
+				this.items = data;
+
+			},
+			error => {
+				alert(error.message);
+			});
+	}
+	onitemedit(item:Item){
+		let dialogRef = this.dialog.open(ItemEditDialog, {
+			width: '600px',
+			data: { item: item, categories: this.categories }
+	    });
+	    dialogRef.afterClosed().subscribe(
+	    	result => {
+	    		if (result) {this.getcategories();}
+	    	});
+	}
+	additem(){
+		let dialogRef = this.dialog.open(ItemEditDialog, {
+			width: '600px',
+			data: { item: null, categories: this.categories }
+	    });
+	    dialogRef.afterClosed().subscribe(
+	    	result => {
+	    		if (result) {this.getcategories();}
+	    	});
+	}
+	onitemdelete(item:Item){
+		this.http.get(API.DeleteItem+item.id).subscribe(
+			data => {
+				const index = this.items.indexOf(item);
+				if (index >= 0)
+					this.items.splice(index, 1);
+			},
+			error => {
+				alert(error.message);
+			});
+	}
+	showorders(){
+		let dialogRef = this.dialog.open(OrdersDialog, {
+			width: '800px',
+	    });
+	    
+	}
 }
